@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="admission" Class="EmpDataDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=AKASH\SQLEXPRESS;Initial Catalog=admission;Integrated Security=True;Encrypt=True;Trust Server Certificate=True" SettingsObjectName="employee.Properties.Settings" SettingsPropertyName="admissionConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.admission" Member="admissions">
+    <Type Name="admission">
+      <Column Name="admissionId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="admissionNo" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="studentName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="DOB" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="addharNo" Type="System.String" DbType="VarChar(12)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="mobileNo" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="GenderId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="bloodGroup" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="nationality" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="sessionId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="sectionId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="categoryId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="stateId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="cityId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="fatherName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="motherName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="fatherOccupation" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="fatherMobileNo" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
+      <Column Name="status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Association Name="state_admission" Member="state" ThisKey="stateId" OtherKey="stateId" Type="state" IsForeignKey="true" />
+      <Association Name="bloodGroup_admission" Member="bloodGroup1" ThisKey="bloodGroup" OtherKey="bloodId" Type="bloodGroup" IsForeignKey="true" />
+      <Association Name="catogery_admission" Member="catogery" ThisKey="categoryId" OtherKey="catogeryId" Type="catogery" IsForeignKey="true" />
+      <Association Name="city_admission" Member="city" ThisKey="cityId" OtherKey="cityId" Type="city" IsForeignKey="true" />
+      <Association Name="gender_admission" Member="gender" ThisKey="GenderId" OtherKey="genderId" Type="gender" IsForeignKey="true" />
+      <Association Name="nationality_admission" Member="nationality1" ThisKey="nationality" OtherKey="nationalityId" Type="nationality" IsForeignKey="true" />
+      <Association Name="section_admission" Member="section" ThisKey="sectionId" OtherKey="sectionId" Type="section" IsForeignKey="true" />
+      <Association Name="session_admission" Member="session" ThisKey="sessionId" OtherKey="sessionId" Type="session" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.state" Member="states">
+    <Type Name="state">
+      <Column Name="stateId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="stateName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="stateCode" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Association Name="state_admission" Member="admissions" ThisKey="stateId" OtherKey="stateId" Type="admission" />
+      <Association Name="state_city" Member="cities" ThisKey="stateId" OtherKey="stateId" Type="city" />
+    </Type>
+  </Table>
+  <Table Name="dbo.bloodGroup" Member="bloodGroups">
+    <Type Name="bloodGroup">
+      <Column Name="bloodId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="bloodName" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Association Name="bloodGroup_admission" Member="admissions" ThisKey="bloodId" OtherKey="bloodGroup" Type="admission" />
+    </Type>
+  </Table>
+  <Table Name="dbo.catogery" Member="catogeries">
+    <Type Name="catogery">
+      <Column Name="catogeryId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="catogeryName" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Association Name="catogery_admission" Member="admissions" ThisKey="catogeryId" OtherKey="categoryId" Type="admission" />
+    </Type>
+  </Table>
+  <Table Name="dbo.city" Member="cities">
+    <Type Name="city">
+      <Column Name="cityId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="cityName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="stateId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Association Name="city_admission" Member="admissions" ThisKey="cityId" OtherKey="cityId" Type="admission" />
+      <Association Name="state_city" Member="state" ThisKey="stateId" OtherKey="stateId" Type="state" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.classes" Member="classes">
+    <Type Name="class">
+      <Column Name="classId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="className" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Association Name="class_section" Member="sections" ThisKey="classId" OtherKey="classId" Type="section" />
+    </Type>
+  </Table>
+  <Table Name="dbo.gender" Member="genders">
+    <Type Name="gender">
+      <Column Name="genderId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="genderName" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Association Name="gender_admission" Member="admissions" ThisKey="genderId" OtherKey="GenderId" Type="admission" />
+    </Type>
+  </Table>
+  <Table Name="dbo.nationality" Member="nationalities">
+    <Type Name="nationality">
+      <Column Name="nationalityId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="nationality" Member="nationality1" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Association Name="nationality_admission" Member="admissions" ThisKey="nationalityId" OtherKey="nationality" Type="admission" />
+    </Type>
+  </Table>
+  <Table Name="dbo.section" Member="sections">
+    <Type Name="section">
+      <Column Name="sectionId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="sectionName" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="classId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Association Name="section_admission" Member="admissions" ThisKey="sectionId" OtherKey="sectionId" Type="admission" />
+      <Association Name="class_section" Member="class" ThisKey="classId" OtherKey="classId" Type="class" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.session" Member="sessions">
+    <Type Name="session">
+      <Column Name="sessionId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="sessionName" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="startFrom" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="endFrom" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="status" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Association Name="session_admission" Member="admissions" ThisKey="sessionId" OtherKey="sessionId" Type="admission" />
+    </Type>
+  </Table>
+</Database>
